@@ -1,0 +1,13 @@
+*[class*="common-modal-component"] {
+  .close {
+    display: none;
+  }
+
+  .common-modal-size-full {
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    background: rgba($color-dark, .85);
+    border: none;
+  }
+}

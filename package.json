@@ -1,0 +1,36 @@
+{
+  "name": "nuxt-clean-app",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Clean nuxt.js app with common boilerplate",
+  "author": "George Shinkarev <gkshi@ya.ru>",
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build --modern",
+    "start": "nuxt start",
+    "generate": "nuxt generate --modern",
+    "lint:js": "eslint --ext .js,.vue --ignore-path .gitignore .",
+    "lint": "yarn lint:js"
+  },
+  "dependencies": {
+    "@nuxtjs/axios": "^5.12.2",
+    "core-js": "^3.6.5",
+    "nuxt": "^2.14.7",
+    "socket.io-client": "^3.0.3"
+  },
+  "devDependencies": {
+    "@nuxtjs/dotenv": "^1.4.1",
+    "@nuxtjs/eslint-config": "^3.1.0",
+    "@nuxtjs/eslint-module": "^2.0.0",
+    "@nuxtjs/style-resources": "^1.0.0",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.10.0",
+    "eslint-plugin-nuxt": "^1.0.0",
+    "node-sass": "^5.0.0",
+    "pug": "^3.0.0",
+    "pug-plain-loader": "^1.0.0",
+    "sass-loader": "^10.1.0",
+    "sortablejs": "^1.12.0",
+    "vue-common-components": "^0.0.17"
+  }
+}
