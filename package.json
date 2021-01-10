@@ -1,8 +1,8 @@
 {
-  "name": "nuxt-clean-app",
-  "version": "1.0.0",
+  "name": "hearthstone-js-frontend",
+  "version": "0.0.3",
   "private": true,
-  "description": "Clean nuxt.js app with common boilerplate",
+  "description": "Frontend for gkshi/hearthstone-js-backend",
   "author": "George Shinkarev <gkshi@ya.ru>",
   "scripts": {
     "dev": "nuxt",
@@ -13,10 +13,10 @@
     "lint": "yarn lint:js"
   },
   "dependencies": {
-    "@nuxtjs/axios": "^5.12.2",
-    "core-js": "^3.6.5",
-    "nuxt": "^2.14.7",
-    "socket.io-client": "^3.0.3"
+    "@nuxtjs/axios": "^5.12.5",
+    "core-js": "^3.8.2",
+    "nuxt": "^2.14.12",
+    "socket.io-client": "^3.0.5"
   },
   "devDependencies": {
     "@nuxtjs/dotenv": "^1.4.1",
@@ -24,11 +24,11 @@
     "@nuxtjs/eslint-module": "^2.0.0",
     "@nuxtjs/style-resources": "^1.0.0",
     "babel-eslint": "^10.1.0",
-    "eslint": "^7.10.0",
+    "eslint": "^7.17.0",
     "eslint-plugin-nuxt": "^1.0.0",
     "node-sass": "^5.0.0",
     "pug": "^3.0.0",
-    "pug-plain-loader": "^1.0.0",
+    "pug-plain-loader": "^1.1.0",
     "sass-loader": "^10.1.0",
     "sortablejs": "^1.12.0",
     "vue-common-components": "^0.0.17"

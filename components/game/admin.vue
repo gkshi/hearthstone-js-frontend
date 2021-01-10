@@ -3,10 +3,6 @@
   // div
     div status: {{ game.status }}
     div turn: {{ game.turn }}
-  // div
-    a(href="#" @click.prevent="init") init
-  // div
-    a(href="#" @click.prevent="reset") reset
   div
     a(href="/") disconnect
 </template>
@@ -17,16 +13,8 @@ import { mapState } from 'vuex'
 export default {
   computed: {
     ...mapState({
-      game: state => state.game
+      game: state => state.game.server
     })
-  },
-  methods: {
-    init () {
-      this.$store.dispatch('game/init')
-    },
-    reset () {
-      this.$store.dispatch('game/reset')
-    }
   }
 }
 </script>

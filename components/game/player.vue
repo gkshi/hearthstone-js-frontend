@@ -1,27 +1,33 @@
 <template lang="pug">
 .game-player-component.flex.center(:class="`-position-${position}`")
-  div {{ hero.name || 'player' }}
+  div {{ name }}
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'game-player-component',
+
   props: {
     position: {
       type: String,
       default: 'bottom'
     }
   },
-  data () {
-    return {
-      hero: {}
+
+  computed: {
+    ...mapGetters([
+      'socket'
+    ]),
+
+    player () {
+      return this.$store.getters['game/player']
+    },
+
+    name () {
+      return this.player?.hero.name || 'Player'
     }
-  },
-  mounted () {
-    window.socket.on('game-start', players => {
-      const player = players.find(i => i.socket === window.socket.id) || {}
-      this.hero = player.hero
-    })
   }
 }
 </script>

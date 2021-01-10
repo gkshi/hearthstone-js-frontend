@@ -6,7 +6,7 @@ import axios from 'axios'
 // import Cookie from 'js-cookie'
 import methods from './methods'
 
-const API_BASE_URL = process.env.NUXT_ENV_API_BASE_URL || ''
+const API_BASE_URL = `//${process.env.NUXT_ENV_BACKEND_HOST}:${process.env.NUXT_ENV_BACKEND_PORT}` || ''
 const SUCCESS_STATUSES = [200, 204]
 
 export const API = {

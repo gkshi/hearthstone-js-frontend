@@ -6,5 +6,5 @@ export default {
    */
   // method (data) {
   //   return this.do('GET', '/url', data)
-  // },
+  // }
 }

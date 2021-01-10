@@ -10,37 +10,28 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
-
 export default {
   computed: {
-    ...mapState({
-      game: state => state.game
-    })
-  },
-  watch: {
-    'game.status' () {
-      this.onGameStatusChange()
+    socket () {
+      return this.$store.getters.socket
     }
   },
+
   mounted () {
-    this.$store.dispatch('game/init')
-  },
-  methods: {
-    onGameStatusChange () {
-      console.log('onGameStatusChange', this.game.status)
-      switch (this.game.status) {
-      case 'ready':
-        this.$store.dispatch('game/prepareGame')
-        this.openModal('hero_pick')
-        break
-      case 'preparing':
-        // this.closeModal('hero_pick')
-        break
-      default:
-        break
-      }
+    // console.log('this.$socket', this.$socket)
+    console.log('------')
+    console.log('this.socket', this.socket)
+    console.log('window.socket', window.socket)
+    if (!window.socket) {
+      this.$router.push('/connect')
     }
+    // console.log('window.socket', window.socket)
+
+    if (this.$store.state.game.heroesToPick.length) {
+      this.openModal('hero_pick')
+    }
+
+    // this.openModal('hero_pick')
   }
 }
 </script>

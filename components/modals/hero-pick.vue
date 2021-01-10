@@ -1,5 +1,5 @@
 <template lang="pug">
-common-modal.hero-pick-modal(id="hero_pick" size="full")
+common-modal.hero-pick-modal(:id="id" size="full")
   .text
     div(v-if="picked") Waiting for other players...
     div(v-else) Pick your hero:
@@ -14,30 +14,48 @@ common-modal.hero-pick-modal(id="hero_pick" size="full")
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 
 export default {
   data () {
     return {
+      id: 'hero_pick',
       picked: false
     }
   },
   computed: {
     ...mapState({
-      heroes: state => state.game.heroes.pick
-    })
+      heroes: state => state.game.heroesToPick
+    }),
+    ...mapGetters([
+      'socket'
+    ])
   },
   mounted () {
-    console.log('window.socket', window.socket)
-    window.socket.on('game-start', players => {
-      this.closeModal('hero_pick')
-    })
+    this.registerEvents()
   },
   methods: {
+    registerEvents () {
+      if (!this.socket) {
+        return
+      }
+
+      // this.socket.on('game-hero-pick', async set => {
+      //   console.log('game-hero-pick', set)
+      //   await this.dispatch('game/setHeroesToPick', set)
+      //   this.openModal(this.id)
+      //   // await this.dispatch('game/setHeroesToPick', set)
+      //   // this.app.router.push('/game')
+      // })
+
+      this.socket.on('game-start', () => {
+        this.closeModal(this.id)
+      })
+    },
+
     onPick (hero) {
       console.log('onPick', hero.id)
       this.$store.dispatch('game/pickHero', hero.id)
-      window.socket.emit('player-hero-pick', hero)
       this.picked = true
     }
   }
