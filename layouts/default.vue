@@ -2,6 +2,9 @@
   #app
     main
       nuxt
+
+    // notifications
+    notification-list
 </template>
 
 <script>

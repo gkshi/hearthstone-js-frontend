@@ -4,7 +4,7 @@
     div status: {{ game.status }}
     div turn: {{ game.turn }}
   div
-    a(href="/") disconnect
+    a(href="#" @click.prevent="disconnect") disconnect
 </template>
 
 <script>
@@ -15,6 +15,13 @@ export default {
     ...mapState({
       game: state => state.game.server
     })
+  },
+
+  methods: {
+    disconnect () {
+      window.socket.emit('disconnect')
+      this.$router.push('/')
+    }
   }
 }
 </script>

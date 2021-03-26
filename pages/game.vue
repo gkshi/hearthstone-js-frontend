@@ -28,7 +28,9 @@ export default {
     // console.log('window.socket', window.socket)
 
     if (this.$store.state.game.heroesToPick.length) {
-      this.openModal('hero_pick')
+      // this.openModal('hero_pick')
+      // this.$modals.open('hero_pick')
+      this.$store.dispatch('modals/open', 'hero_pick')
     }
 
     // this.openModal('hero_pick')

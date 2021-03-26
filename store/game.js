@@ -1,23 +1,25 @@
 export const state = () => ({
   server: {},
-  heroesToPick: []
+  heroesToPick: [],
+  players: []
 })
 
 export const actions = {
-  updateConfig ({ commit }, config) {
-    commit('CONFIG_UPDATE', config)
-  },
-
   reconnect ({ commit }, gameState) {
     commit('SERVER_UPDATE', gameState)
+    commit('PLAYERS_UPDATE', gameState.players)
+  },
+
+  setHeroesToPick ({ commit }, set) {
+    commit('HEROES_TO_PICK_UPDATE', set)
   },
 
   pickHero ({ rootGetters }, heroId) {
     rootGetters.socket.emit('game-player-picked-hero', heroId)
   },
 
-  setHeroesToPick ({ commit }, set) {
-    commit('HEROES_TO_PICK_UPDATE', set)
+  onGameStart ({ commit }, players) {
+    commit('PLAYERS_UPDATE', players)
   }
 }
 
@@ -28,17 +30,21 @@ export const mutations = {
 
   SERVER_UPDATE (state, server) {
     state.server = server
+  },
+
+  PLAYERS_UPDATE (state, players) {
+    state.players = players
   }
 }
 
 export const getters = {
   player: state => {
-    if (!state.server.players) {
+    if (!state.players) {
       return undefined
     }
 
     const sessionId = sessionStorage.getItem('session-id') || ''
-    return state.server.players.find(i => i.sessionId === +sessionId)
+    return state.players.find(i => i.sessionId === +sessionId)
   }
 }
 

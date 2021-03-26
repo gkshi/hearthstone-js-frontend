@@ -11,7 +11,11 @@ export const state = () => ({
 })
 
 export const actions = {
-  connect () {
+  connect ({ commit, dispatch }) {
+    if (window.socket) {
+      return
+    }
+
     const sessionId = sessionStorage.getItem('session-id') || ''
     console.log('--- connect ---')
     console.log('sessionId', sessionId)
@@ -19,10 +23,31 @@ export const actions = {
       `//${process.env.NUXT_ENV_BACKEND_HOST}:${process.env.NUXT_ENV_BACKEND_PORT}/`,
       { query: { sessionId } })
 
-    window.socket = socket
+    setTimeout(() => {
+      if (!socket.connected) {
+        dispatch('notifications/show', {
+          title: 'Server error',
+          message: 'Server doesn\'t response at the moment',
+          type: 'error'
+        }, { root: true })
+      }
+    }, 1000)
+
+    // console.log('!socket', socket)
+    commit('SOCKET_UPDATE', socket)
+    // window.socket = socket
 
     socket.on('connect', () => {
       console.log('connect: socket id', socket.id)
+    })
+
+    socket.on('disconnect', () => {
+      console.log('disconnect: socket id')
+      dispatch('notifications/show', {
+        title: 'Disconnect',
+        message: 'No more response from the server',
+        type: 'error'
+      }, { root: true })
     })
 
     socket.on('reconnect', async gameState => {
@@ -38,6 +63,11 @@ export const actions = {
 
     socket.on('reconnect', player => {
       console.log('reconnected: socket id', socket.id)
+    })
+
+    socket.on('game-start', async players => {
+      console.log('game-start', players)
+      await this.dispatch('game/onGameStart', players)
     })
 
     socket.on('event', payload => {
@@ -63,12 +93,17 @@ export const actions = {
       await this.dispatch('game/setHeroesToPick', set)
       this.app.router.push('/game')
     })
+  },
+
+  findGame () {
+    window.socket.emit('find-game')
   }
 }
 
 export const mutations = {
   SOCKET_UPDATE (state, socket) {
-    state.socket = socket
+    // state.socket = socket
+    window.socket = socket
   }
 }
 

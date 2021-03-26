@@ -1,39 +1,17 @@
 <template lang="pug">
 .game-layers-component.flex.column.center
-  hero-in-bar(v-for="player in heroes" :data="player.hero" :key="player.hero.id")
+  hero-in-bar(v-for="player in players" :data="player.hero" :key="player.hero.id")
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex'
+import { mapState } from 'vuex'
 
 export default {
   name: 'game-layers-component',
-  data () {
-    return {
-      players: []
-    }
-  },
   computed: {
     ...mapState({
-      heroes: state => state.game.server.players
-    }),
-    ...mapGetters([
-      'socket'
-    ])
-  },
-  mounted () {
-    this.registerEvents()
-  },
-  methods: {
-    registerEvents () {
-      if (!this.socket) {
-        return
-      }
-
-      this.socket.on('game-start', players => {
-        this.players = players
-      })
-    }
+      players: state => state.game.players
+    })
   }
 }
 </script>

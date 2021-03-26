@@ -19,16 +19,19 @@ export default {
     }
   },
   mounted () {
-    this.connect()
+    // this.connect()
+    this.$store.dispatch('findGame')
+    this.startTimer()
   },
   beforeDestroy () {
     clearInterval(this.timer.interval)
   },
   methods: {
-    connect () {
-      this.startTimer()
-      this.$store.dispatch('connect')
-    },
+    // connect () {
+    //   this.startTimer()
+    //   this.$store.dispatch('findGame')
+    //   // this.$store.dispatch('connect')
+    // },
     startTimer () {
       this.timer.interval = setInterval(() => {
         this.timer.value++

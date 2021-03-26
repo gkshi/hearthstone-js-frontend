@@ -1,5 +1,5 @@
 <template lang="pug">
-common-modal.hero-pick-modal(:id="id" size="full")
+modal-wrapper.hero-pick-modal(:id="id" size="full")
   .text
     div(v-if="picked") Waiting for other players...
     div(v-else) Pick your hero:
@@ -48,13 +48,16 @@ export default {
       //   // this.app.router.push('/game')
       // })
 
+      console.log('this.$socket', this.$socket)
       this.socket.on('game-start', () => {
-        this.closeModal(this.id)
+        this.$store.dispatch('modals/close', this.id)
+        // this.closeModal(this.id)
       })
     },
 
     onPick (hero) {
       console.log('onPick', hero.id)
+      console.log('sock em', window.socket.emit)
       this.$store.dispatch('game/pickHero', hero.id)
       this.picked = true
     }

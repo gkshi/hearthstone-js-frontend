@@ -13,6 +13,11 @@ export default {
     timing: false
   },
 
+  // router
+  router: {
+    middleware: ['socket']
+  },
+
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
     title: 'nuxt-clean-app',
@@ -47,7 +52,6 @@ export default {
   plugins: [
     'node_modules/vue-common-components',
     '@/directives/outside',
-    '@/plugins/socket',
     '@/plugins/session-id'
   ],
 
@@ -58,8 +62,13 @@ export default {
     { path: '~/components/game/', prefix: 'game' },
     { path: '~/components/hero/', prefix: 'hero' },
     { path: '~/components/icons/', prefix: 'icon' },
-    { path: '~/components/modals/', prefix: 'modal' }
+    { path: '~/components/modals/', prefix: 'modal' },
+    { path: '~/components/notification/', prefix: 'notification' }
   ],
+
+  commonComponents: {
+    components: ['button']
+  },
 
   // Modules for dev and build (recommended) (https://go.nuxtjs.dev/config-modules)
   buildModules: [
